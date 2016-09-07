@@ -1,2 +1,11 @@
+# compiled java files
 *.class
+
+# target directory 
 target
+
+# H2 Database trace log
+boardweb.trace.db
+
+# Any vim temporary files
+*.swp
