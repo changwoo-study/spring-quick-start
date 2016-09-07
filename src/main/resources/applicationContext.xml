@@ -18,4 +18,12 @@
 	-->
 	
 	<context:component-scan base-package="com.springbook.biz"></context:component-scan>
+	
+	<!--  어노테이션 삭제시 아래 코드의 주석 해제 -->
+	<!--
+	<bean id="userService" class="com.springbook.biz.user.impl.UserServiceImpl">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	
+	<bean id="userDAO" class="com.springbook.biz.user.impl.UserDAO" />  -->
 </beans>
