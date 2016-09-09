@@ -28,24 +28,24 @@
 	<bean id="userDAO" class="com.springbook.biz.user.impl.UserDAO" />
 	-->
 	
-	<!--
-	로그 관련 어드바이스
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+	<!--  
+	aop:aspectj-autoproxy를 사용하지 않으면 사용해야 했던 어드바이스 beans
 
 	<bean id="log" class="com.springbook.biz.common.LogAdvice"></bean>
 	<bean id="before" class="com.springbook.biz.common.BeforeAdvice"></bean>
 	<bean id="afterReturning" class="com.springbook.biz.common.AfterReturningAdvice"></bean>
 	<bean id="afterThrowing" class="com.springbook.biz.common.AfterThrowingAdvice"></bean>
 	<bean id="after" class="com.springbook.biz.common.AfterAdvice"></bean>
-	 -->
 	<bean id="around" class="com.springbook.biz.common.AroundAdvice"></bean>
+	 -->
 
+	<!--
+	aop:aspectj-autoproxy를 사용하지 않으면 사용해야 했던 config
 	<aop:config>
 		<aop:pointcut id="allPointcut" expression="execution(* com.springbook.biz..*Impl.*(..))" />
 		<aop:pointcut id="getPointcut" expression="execution(* com.springbook.biz..*Impl.get*(..))" />
-
-		<!--
-		before/after/after-returning/after-throwing/arount aspects 
-
 		<aop:aspect ref="before">
 			<aop:before pointcut-ref="allPointcut" method="beforeLog" />
 		</aop:aspect>
@@ -58,10 +58,9 @@
 		<aop:aspect ref="after">
 			<aop:after pointcut-ref="allPointcut" method="finallyLog" />
 		</aop:aspect>
-		-->
 		<aop:aspect ref="around">
 			<aop:around pointcut-ref="allPointcut" method="aroundLog" />
 		</aop:aspect>
-
 	</aop:config>
+	-->
 </beans>
