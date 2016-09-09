@@ -6,61 +6,22 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-
-	<!-- <context:component-scan base-package="polymorphism"></context:component-scan>
-	<bean id="tv" class="polymorphism.SamsungTV">
-		<constructor-arg index="0" ref="apple" />
-		<constructor-arg index="1" value="270000" />
-		<property name="speaker" ref="apple" />
-		<property name="price" value="270000" />
-	</bean> 
-	<bean id="sony" class="polymorphism.SonySpeaker" />
-	<bean id="apple" class="polymorphism.AppleSpeaker" />
-	-->
 	
 	<context:component-scan base-package="com.springbook.biz"></context:component-scan>
 	
-	<!--  어노테이션 삭제시 아래 코드의 주석 해제 -->
-	<!--
-	<bean id="userService" class="com.springbook.biz.user.impl.UserServiceImpl">
-		<property name="userDAO" ref="userDAO" />
-	</bean>
-	<bean id="userDAO" class="com.springbook.biz.user.impl.UserDAO" />
-	-->
-	
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
-	<!--  
-	aop:aspectj-autoproxy를 사용하지 않으면 사용해야 했던 어드바이스 beans
-
-	<bean id="log" class="com.springbook.biz.common.LogAdvice"></bean>
-	<bean id="before" class="com.springbook.biz.common.BeforeAdvice"></bean>
-	<bean id="afterReturning" class="com.springbook.biz.common.AfterReturningAdvice"></bean>
-	<bean id="afterThrowing" class="com.springbook.biz.common.AfterThrowingAdvice"></bean>
-	<bean id="after" class="com.springbook.biz.common.AfterAdvice"></bean>
-	<bean id="around" class="com.springbook.biz.common.AroundAdvice"></bean>
-	 -->
-
-	<!--
-	aop:aspectj-autoproxy를 사용하지 않으면 사용해야 했던 config
-	<aop:config>
-		<aop:pointcut id="allPointcut" expression="execution(* com.springbook.biz..*Impl.*(..))" />
-		<aop:pointcut id="getPointcut" expression="execution(* com.springbook.biz..*Impl.get*(..))" />
-		<aop:aspect ref="before">
-			<aop:before pointcut-ref="allPointcut" method="beforeLog" />
-		</aop:aspect>
-		<aop:aspect ref="afterReturning">
-			<aop:after-returning pointcut-ref="allPointcut" method="afterLog" returning="returnedObj" />
-		</aop:aspect>
-		<aop:aspect ref="afterThrowing">
-			<aop:after-throwing pointcut-ref="allPointcut" method="exceptionLog" throwing="thrownObj" />
-		</aop:aspect>
-		<aop:aspect ref="after">
-			<aop:after pointcut-ref="allPointcut" method="finallyLog" />
-		</aop:aspect>
-		<aop:aspect ref="around">
-			<aop:around pointcut-ref="allPointcut" method="aroundLog" />
-		</aop:aspect>
-	</aop:config>
-	-->
+	<!-- DataSource setting -->
+	<context:property-placeholder location="classpath:config/database.properties" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<!-- Spring JDBC -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 </beans>
