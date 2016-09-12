@@ -1,13 +1,9 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.springbook.biz.board.impl.BoardDAO" %>
 <%@ page import="com.springbook.biz.board.BoardVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-BoardVO  vo       = new BoardVO();
-BoardDAO boardDAO = new BoardDAO();
-
-List<BoardVO> boardList = boardDAO.getBoardList(vo);
+List<BoardVO> boardList = (List)session.getAttribute("boardList");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,10 +15,10 @@ List<BoardVO> boardList = boardDAO.getBoardList(vo);
 <body>
 	<center>
 		<h1>글 목록</h1>
-		<h3>테스트님 환영합니다....<a href="logout_proc.jsp">log out</a></h3>
+		<h3>테스트님 환영합니다....<a href="logout.do">log out</a></h3>
 	
 		<!--  검색 시작  -->
-		<form action="getBoardList.jsp" method="post">
+		<form action="getBoardList.do" method="post">
 			<table border="1" cellpadding="0" cellspacing="0" width="700">
 				<tr>
 					<td align="right">
@@ -51,7 +47,7 @@ List<BoardVO> boardList = boardDAO.getBoardList(vo);
 			<tr>
 				<td><%= board.getSeq() %></td>
 				<td align="left">
-					<a href="getBoard.jsp?seq=<%= board.getSeq() %>">
+					<a href="getBoard.do?seq=<%= board.getSeq() %>">
 						<%= board.getTitle() %>
 					</a>
 				</td>
@@ -62,7 +58,7 @@ List<BoardVO> boardList = boardDAO.getBoardList(vo);
 			<% } %>
 		</table>
 		<br>
-		<a href="insertBoard.jsp">새 글 등록</a>
+		<a href="insertBoard.do">새 글 등록</a>
 	</center>
 </body>
 </html>
