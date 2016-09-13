@@ -78,6 +78,14 @@ public class BoardController {
 			//@RequestParam(value="searchKeyword", defaultValue="", required=false) String keyword,
 			BoardVO vo, Model model) {
 
+		if(vo.getSearchCondition() == null) {
+			vo.setSearchCondition("TITLE");
+		}
+
+		if(vo.getSearchKeyword() == null) {
+			vo.setSearchKeyword("");
+		}
+
 		model.addAttribute("boardList", boardService.getBoardList(vo));
 
 		return "getBoardList.jsp";

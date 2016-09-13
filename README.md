@@ -10,6 +10,25 @@ Spring Quick Start 실습 소스 코드 모음.
 * 2016년 09월 07일: Day 01 Class 07까지 실습
 
 
+Day 04까지의 개요
+----------------
+모델 2 방식의 스프링을 활용한 MVC 방식의 게시판으로 구현한다. 이전의 XML 구성을 줄이고 어노테이션을 활용하는 방향으로 진행된다. 사용되는 어노테이션의 종류는 다음과 같다.
+
+- @Controller (org.springframework.stereotype.Controller)
+- @RequestMapping (org.springframework.web.bind.annotation.ReqeustMapping)
+- @ModelAttribute (org.springframework.web.bind.annotation.ModelAttribute)
+- @RequestParam (org.springframework.web.bind.annotation.ReqeustParam)
+- @SessionAttributes (org.springframework.web.bind.annotation.SessionAttributes)
+
+이제 프레젠테이션 레이어와 비즈니스 레이어를 나눈다. 지금까지 컨트롤러에서 직접 VO와 DAO를 활용했다. 그러나 비즈니스 레이어를 두어 BoardService, BoardServiceImpl이 컨트롤러에서 활용되도록 변경했다.
+
+이 때 applicationContext.xml이 로딩되지 않아 웹 서비스에서 BoardService를 로딩하지 못하는 문제가 발생하는데, 이를 이해 ContextLoaderListener를 등록, 설정하여 이를 해결한다.
+
+407페이지의 그림 3-5는 이와 관련하여 중요한 개념을 보여주고 있다.
+
+Class 04에서 드디어 글 검색 기능이 구현되었다. 왜 이제서야 이것을 구현했는지는 좀 의문.
+
+
 Day 03까지의 개요
 -----------------
 아주 간단한 게시판 시스템을 Model 1 방식으로 구현했다. 일단 이 방식으로도 모델 코드는 큰 변경 없이 활용할 수 있지만 PHP의 구식 스크립팅처럼 뒤죽박죽인 소스코드를 생성하게 된다. 이것을 점진적으로 Model 2 방식으로 변경해 나가는 것이 이 장의 개요이다.
