@@ -48,7 +48,7 @@
 			<input name="seq" type="hidden" value="${board.seq }" />
 		</form>
 		<hr>
-		<a href="insertBoard.do">글 등록</a>&nbsp;&nbsp;&nbsp;
+		<a href="insertBoard.jsp">글 등록</a>&nbsp;&nbsp;&nbsp;
 		<a href="deleteBoard.do?seq=${board.seq }">글 삭제</a>&nbsp;&nbsp;&nbsp;
 		<a href="getBoardList.do">글 목록</a>
 	</center>

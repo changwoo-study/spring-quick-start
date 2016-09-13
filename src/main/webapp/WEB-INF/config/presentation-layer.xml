@@ -1,33 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<props>
-				<prop key="/login.do">login</prop>
-				<prop key="/logout.do">logout</prop>
-				<prop key="/getBoardList.do">getBoardList</prop>
-				<prop key="/getBoard.do">getBoard</prop>
-				<prop key="/insertBoard.do">insertBoard</prop>
-				<prop key="/updateBoard.do">updateBoard</prop>
-				<prop key="/deleteBoard.do">deleteBoard</prop>
-			</props>
-		</property>
-	</bean>
-	
-	<bean id="login" class="com.springbook.view.user.LoginController" />
-	<bean id="logout" class="com.springbook.view.user.LoginController" />
-	<bean id="getBoardList" class="com.springbook.view.board.GetBoardListController" />
-	<bean id="getBoard" class="com.springbook.view.board.GetBoardController" />
-	<bean id="insertBoard" class="com.springbook.view.board.InsertBoardController" />
-	<bean id="updateBoard" class="com.springbook.view.board.UpdateBoardController" />
-	<bean id="deleteBoard" class="com.springbook.view.board.DeleteBoardController" />
-	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/board/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+	<context:component-scan base-package="com.springbook.view" />
 
 </beans>

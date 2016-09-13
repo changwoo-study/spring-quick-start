@@ -15,13 +15,13 @@
 				<tr>
 					<td bgcolor="orange">아이디</td>
 					<td>
-						<input type="text" name="id">
+						<input type="text" name="id" value="${user.id}">
 					</td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">비밀번호</td>
 					<td>
-						<input type="password" name="password">
+						<input type="password" name="password" value="${user.password}">
 					</td>
 				</tr>
 				<tr>
