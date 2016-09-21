@@ -50,3 +50,38 @@ DispatchServelt 등록 및 컨테이너에 필요한 사항은 xml 설정 파일
 InternalResourceViewResolver를 이용해 내부적으로만 사용 가능하고, 외부에서는 접근 불가능한 JSP 파일을 관리할 수 있는 방법도 실습니다.
 
 
+Day 04 개요
+-----------
+스프링 MVC 개발을 시작한다. 그런데 이전 장에서는 XML 설정으로만 구현을 했는데, 이 경우에는 설정의 양이 지나치게 많아지는 문제가 여전히 발생한다. 그리하여 이 장에서는 XML설정의 양을 경감시키기 위해 어노테이션 기반의 구현으로 변형을 한다.
+
+@Controller 어노테이션은 @Component 어노테이션을 상속받은 것으로, 콘트롤러 클래스에 사용된다.
+@RequestMapping은 URI path에 콘트롤러를 대응시켜 준다.
+
+스프링 컨테이너에서 재미있는 점은 VO 클래스를 제작하면, 브라우저를 통해 REQUEST가 전달될 때, 이 안의 키 이름을 분석해 setter 함수의 이름 규칙에 맞는 키의 값은 VO 객체로 자동 생성된다는 점이다. 커맨드 객체라고 부른다.
+
+이 때 @ModelAttribute를 사용하면 템플릿에 사용될 커맨드 객체의 이름을 변경 가능하다. 또 @RequestParam 어노테이션은 커맨드 객체에 등록되지 않은 파라미터를 추출할 수 있다.
+@ModelAttribute 어노테이션은 함수에도 사용할 수 있는데, 함수의 리턴된 객체를 템플릿에서 사용할 수 있다. @SessionAttributes 어노테이션은 세션 변수를 조작할 때 사용할 수 있다.
+
+그리고 Class 03에 오면서 우리는 컨트롤러에서 직접적으로 사용한 DAO를 삭제했다. 그리고 DAO대신 이전까지 제작된 Service 객체를 사용하기로 한다. 그런데 지금까지는 이 객체에 대한 서비스 의존성 주입에 대한 설정이 없어 에러가 난다. 의존성 주입 관련 코드는 applicationContext.xml에 존재하기 때문이다. web.xml에서 presentation-layer.xml이라는 웹 설정 파일의 위치를 지정한다. presentation-layer.xml 파일에서 ContextLoaderListener를 등록하여 applicationContext.xml 을 먼저 로딩하는 과정을 거치도록 한다.
+
+파일 업로드 기능을 구현한다. 
+
+- 커맨드 객체에 MultiPartFile 클래스를 멤버로 넣는다.
+- pom.xml 파일의 의존성 목록에 commons-fileupload 를 넣는다.
+- applicationContext.xml bean 등록을 한다. multipartResolver id로 CommonsMultipartReolver 클래스가 타깃이다
+
+
+예외 처리를 구현한다. 이따금 자바 기반으로 된 사이트를 방문하면서 본 기억이 있는 듯하다.
+어노테이션 기반 구현이 있긴 하지만, 이 부분은 XML 기반의 예외 처리가 더욱 편리한 것으로 보인다.
+
+
+다국어 처리를 구현한다.
+
+- messageSoure를 아이디로, ResourceBundleMessageSource를 타깃으로 빈 등록한다.
+- localeResolver를 아이디로, SessionLocaleResolver를 타깃으로 빈 등록한다.
+- mvc:interceptors 태그 안에 LocaleChangeInterceptor를 빈 등록한다. 
+- 템플릿에서 <spring:message code="메시지 키 값">으로 메시지를 치환한다.
+
+
+JSON이나 XML로 데이터를 변환하는 방법을 실습한다. Jackson2와 JAXB2를 이용해 객체를 JSON으로 내보내고, BoardVO를 수정하고, BoardListVO를 생성하여 XML로 내보낸다.
+
