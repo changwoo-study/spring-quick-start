@@ -43,5 +43,15 @@
 		<aop:pointcut id="txPointcut" expression="execution(* com.springbook.biz..*(..))" />
 		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice" />
 	</aop:config>
+	
+	<!-- Spring과 Mybatis 연동 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:sql-map-config.xml" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession" />
+	</bean>
 
 </beans>
