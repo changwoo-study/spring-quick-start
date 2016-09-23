@@ -2,29 +2,34 @@ package com.springbook.biz.board;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
 
-@XmlAccessorType(XmlAccessType.FIELD)
+@Entity
+@Table(name="BOARD")
 public class BoardVO {
-	@XmlAttribute
+	@Id
+	@GeneratedValue
 	private int    seq;
 	private String title;
 	private String writer;
 	private String content;
+	@Temporal(TemporalType.DATE)
 	private Date   regDate;
 	private int    cnt;
-	@XmlTransient
+	@Transient
 	private String searchCondition;
-	@XmlTransient
+	@Transient
 	private String searchKeyword;
-	@XmlTransient
+	@Transient
 	private MultipartFile uploadFile;
 
 	public int getSeq() {
@@ -63,21 +68,18 @@ public class BoardVO {
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
-	@JsonIgnore
 	public String getSearchCondition() {
 		return searchCondition;
 	}
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
 	}
-	@JsonIgnore
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
 	}
-	@JsonIgnore
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}
